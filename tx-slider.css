@@ -1,0 +1,69 @@
+/*
+ * The slider in Spectrum is quite complex and requires JavaScript
+ *
+ * The implementation is fairly simple and follows the advise given and
+ * linked to in
+ *
+ * https://developer.mozilla.org/en-US/docs/Web/CSS/::-webkit-slider-thumb
+ *
+ * FIXME: try to use -web-kit, -moz to implement the track and get rid of the outer div
+ */
+
+.tx-slider {
+    height: 14px;
+    position: relative;
+    width: 270px;
+}
+.tx-slider > input {
+    position: absolute;
+    top: 4px;
+    -webkit-appearance: none;
+    width: 100%;
+    height: 2px;
+    border: none;
+    background: var(--tx-gray-700); /* track */
+    outline-offset: 2px;
+}
+
+.tx-slider > input::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 14px;
+    height: 14px;
+    border: 2px solid var(--tx-gray-700); /* knob border */
+    border-radius: 50%;
+    background: var(--tx-gray-75); /* inside knob */
+    cursor: pointer;
+    box-sizing: border-box;
+}
+.tx-slider > input::-moz-range-thumb {
+    width: 14px;
+    height: 14px;
+    border: 2px solid var(--tx-gray-700); /* knob border */
+    border-radius: 50%;
+    background: var(--tx-gray-75); /* inside knob */
+    box-sizing: border-box;
+}
+.tx-slider > input::-moz-focus-outer {
+    border: 0;
+}
+
+.tx-slider > input:hover {
+    background: var(--tx-gray-800); /* track */
+}
+.tx-slider > input:hover::-webkit-slider-thumb {
+    border: 2px solid var(--tx-gray-800); /* knob border */
+}
+.tx-slider > input:hover::-moz-range-thumb {
+    border: 2px solid var(--tx-gray-800); /* knob border */
+}
+
+.tx-slider > input:disabled {
+    background: var(--tx-gray-500); /* track */
+}
+.tx-slider > input:disabled::-webkit-slider-thumb {
+    border: 2px solid var(--tx-gray-500); /* knob border */
+}
+.tx-slider > input:disabled::-moz-range-thumb {
+    border: 2px solid var(--tx-gray-500); /* knob border */
+}

@@ -1,0 +1,516 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TX Spectrum</title>
+
+    <!--
+        Classification follows Brad Frost's Atomic Design Terminology:
+        * Design Tokens (colors, widths, ...)
+        * Atoms (Text, Label, Slider, ...)
+        * Molecule (Search, Search Within, Label+Text+Help Text, Form, ...)
+        * Organism, Template, Page (Application Level, not covered here)
+        https://bradfrost.com/blog/post/atomic-web-design/
+    -->
+
+    <!-- Design Tokens -->
+    <link rel="stylesheet" type="text/css" href="tx-static.css" />
+    <link rel="stylesheet" type="text/css" href="tx-dark.css" />
+    <link rel="stylesheet" type="text/css" href="style.css" />
+
+    <!-- Atoms  -->
+    <link rel="stylesheet" type="text/css" href="tx-text.css" />
+    <link rel="stylesheet" type="text/css" href="tx-helptext.css" />
+    <link rel="stylesheet" type="text/css" href="tx-label.css" />
+    <link rel="stylesheet" type="text/css" href="tx-form.css" />
+    <link rel="stylesheet" type="text/css" href="tx-checkbox.css" />
+    <link rel="stylesheet" type="text/css" href="tx-switch.css" />
+    <link rel="stylesheet" type="text/css" href="tx-radio.css" />
+    <link rel="stylesheet" type="text/css" href="tx-slider.css" />
+    <link rel="stylesheet" type="text/css" href="tx-search.css" />
+    <link rel="stylesheet" type="text/css" href="tx-searchwithin.css" />
+    <link rel="stylesheet" type="text/css" href="tx-combobox.css" />
+    <style>
+        :root {
+            /* rounding: 4px desktop, 5px mobile */
+            /* Use one column per page, with a width no longer than 80 characters (or 40 CJK characters) wide. Have line lengths at a maximum of 50-75 characters. */
+
+            --toad-font-family: 'IBM Plex Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            --toad-font-size: calc((12/16) * 1rem);
+            --toad-font-size-info: calc((11/16) * 1rem);
+
+            --toad-fg-color: var(--tx-gray-700);
+            --toad-bg-color: var(--tx-gray-50);
+            --toad-placeholder-fg-color: #909090;
+            --toad-placeholder-fg-color-hover: #fff;
+
+            --toad-fg-color-disabled: var(--tx-gray-500);
+            --toad-bg-color-disabled: var(--tx-gray-100);
+
+            /* Edit */
+            --toad-edit-font-size: calc((12/16) * 1rem);
+            --toad-edit-font-weight: 400;
+
+            --toad-edit-fg-color: #e3e3e3;
+            --toad-edit-fg-color-disabled: #6e6e6e;
+
+            --toad-edit-bg-color: var(--tx-gray-50);
+            --toad-edit-bg-color-disabled: var(--tx-gray-100);
+
+            --toad-selection-color: #0069d4;
+            --toad-warning-color: #f76d74;
+
+            /* Border/Outline */
+
+            /* outline indicates that the element has the focus */
+            --toad-outline-color: #378ef0;
+            --toad-border-color: #5a5a5a;
+            --toad-border-color-hover: #6e6e6e;
+            --toad-border-width: 1px;
+            --toad-border-radius: 4px;
+        }
+    </style>
+</head>
+
+<body>
+    <!--
+        Colors
+                        Border     Value BG    Button BG
+        Focus           #378ef0
+        Error           #f76d74
+                        
+        Combobox (1px)      
+            Enabled     gray-400   gray-50     gray-75
+            Hover       gray-500   gray-50     gray-75
+            Open        gray-400   gray-50     #3e3e3e
+            Disabled    #3e3e3e    #3e3e3e     #3e3e3e
+        CheckBox (2px)
+            Enabled     #b9b9b9         gray-75
+            Hover       gray-800        gray-75
+            Disabled    gray-400        gray-75
+        Switch
+            Inside Switch               gray-75
+            Switch Border On/Off        gray-700
+            Switch Border Hover         gray-800
+
+            Label                       gray-800
+            Label Hover                 #fbfbfb
+            Label Disabled              gray-500
+
+            Outside Switch Off          gray-300
+            Outside Switch On Disabled  gray-400
+            Outside Switch On Enabled   gray-700
+        Radiobutton
+            Enabled                     gray-700
+            Hover                       gray-800
+            Disabled                    gray-400
+            Inside                      gray-75
+    -->
+
+    <!--
+        TextFieldModel
+            label: string
+            help: string
+            error: string
+            disabled
+            required
+    -->
+
+    <h1><svg width="50" height="30">
+            <path style="fill: var(--tx-static-red-500)" d="M 10 0 L 00 30 L 10 30 L 20 0 C"></path>
+            <path style="fill: var(--tx-static-orange-500)" d="M 20 0 L 10 30 L 20 30 L 30 0 C"></path>
+            <path style="fill: var(--tx-static-green-500)" d="M 30 0 L 20 30 L 30 30 L 40 0 C"></path>
+            <path style="fill: var(--tx-static-blue-500)" d="M 40 0 L 30 30 L 40 30 L 50 0 C"></path>
+        </svg><i>TX Spectrum (Work in Progress)</i></h1>
+
+    <h2>What</h2>
+
+    <p>
+        CSS for applications with a light and a <a href="https://en.wikipedia.org/wiki/Light-on-dark_color_scheme">dark</a> look
+        based on <a href="https://spectrum.adobe.com">Adobe's Spectrum Design System</a> and
+        <a href="https://www.ibm.com/plex/">IBM's Plex font family</a>.
+    </p>
+
+    <p>
+        <u><b>Please note that TX Spectrum does not use the CSS provided by Adobe and
+        if you find TX sucks, please blame me instead of Adobe.</b></u>
+    </p>
+
+    <h2>Why</h2>
+
+    <p>
+        The browser is replacing the desktop and I was in need for a decent look to use
+        in <a href="https://github.com/markandre13/workflow">workflow</a> and
+        <a href="https://github.com/markandre13/toad.js">toad.js</a>.
+    </p>
+
+    <p>
+        <u>Adobe Spectrum</u> is similar to the widely adopted <a href="https://material.io">Google
+        Material.io</a>, while a) reducing the amount of
+        animation, b) reducing the amount of required DOM elements and c) covering the needs for application
+        development.
+    </p>
+
+    <p>
+        <u>IBM Plex</u> replaces the Adobe Clean fonts, which are restricted for use in Adobe's
+        applications, while Plex is <a href="https://www.gnu.org/licenses/license-list.en.html#SILOFL">free as in freedom</a>.
+    </p>
+
+    <p>
+        <u>CSS</u> supports <a href="https://en.wikipedia.org/wiki/Separation_of_concerns">separation of concerns</a>
+        and independence from frameworks like WebComponents, Angular, React, Vue, Svelte, jQuery, ...
+    </p>
+
+    <!--
+      for the production build i might want to use something like this:
+      https://www.npmjs.com/package/rollup-plugin-import-css
+    -->
+
+    <!--
+        The paths are from Adobe's Spectrum and under MIT License
+    -->
+    <svg style="display: none;">
+        <path id="exclamation"
+            d="M17.127 2.579L.4 32.512A1 1 0 001.272 34h33.456a1 1 0 00.872-1.488L18.873 2.579a1 1 0 00-1.746 0zM20 29.5a.5.5 0 01-.5.5h-3a.5.5 0 01-.5-.5v-3a.5.5 0 01.5-.5h3a.5.5 0 01.5.5zm0-6a.5.5 0 01-.5.5h-3a.5.5 0 01-.5-.5v-12a.5.5 0 01.5-.5h3a.5.5 0 01.5.5z">
+        </path>
+        <path id="checkmark"
+            d="M3.5 9.5a.999.999 0 01-.774-.368l-2.45-3a1 1 0 111.548-1.264l1.657 2.028 4.68-6.01A1 1 0 019.74 2.114l-5.45 7a1 1 0 01-.777.386z">
+        </path>
+        <path id="cross"
+            d="M6.548 5L9.63 1.917A1.094 1.094 0 008.084.371L5.001 3.454 1.917.37A1.094 1.094 0 00.371 1.917L3.454 5 .37 8.085A1.094 1.094 0 101.917 9.63l3.084-3.083L8.084 9.63a1.094 1.094 0 101.547-1.546z">
+        </path>
+        <path id="chevron"
+            d="M3 9.95a.875.875 0 01-.615-1.498L5.88 5 2.385 1.547A.875.875 0 013.615.302L7.74 4.377a.876.876 0 010 1.246L3.615 9.698A.872.872 0 013 9.95z">
+        </path>
+        <path id="search" d="M33.173 30.215L25.4 22.443a12.826 12.826 0 10-2.957 2.957l7.772 7.772a2.1 2.1 0 002.958-2.958zM6 15a9 9 0 119 9 9 9 0 01-9-9z"></path>
+    </svg>
+
+    <h2>Text</h2>
+
+    <h4>Label, Text Help Text</h4>
+
+    <div>
+        <label class="tx-label disabled" for="lifeform">Lifeform</label>
+        <input class="tx-text" id="lifeform" disabled placeholder="Vegetable" value="Tomato" />
+    </div>
+
+    <div>
+        <label class="tx-label" for="username">Username</label>
+        <input id="username" class="tx-text" placeholder="Orange" />
+        <div class="tx-helptext error">
+            <svg viewBox="0 0 36 36" width="100%" height="100%">
+                <path
+                    d="M17.127 2.579L.4 32.512A1 1 0 001.272 34h33.456a1 1 0 00.872-1.488L18.873 2.579a1 1 0 00-1.746 0zM20 29.5a.5.5 0 01-.5.5h-3a.5.5 0 01-.5-.5v-3a.5.5 0 01.5-.5h3a.5.5 0 01.5.5zm0-6a.5.5 0 01-.5.5h-3a.5.5 0 01-.5-.5v-12a.5.5 0 01.5-.5h3a.5.5 0 01.5.5z">
+                </path>
+            </svg>
+            <div>
+                Lorem ipsum dolor sit amet, consectetur adipisici elit, sed eiusmod tempor incidunt ut labore et dolore
+                magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquid ex ea
+                commodi consequat. Quis aute iure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+                pariatur. Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia deserunt mollit anim
+                id est laborum.
+            </div>
+        </div>
+    </div>
+
+    <h4>Text Area</h4>
+
+    <h2>Number</h2>
+    <h4>Slider</h4>
+
+    <div class="tx-slider">
+        <input type="range" min="1" max="100" value="50" />
+    </div>
+
+    <div class="tx-slider">
+        <input type="range" min="1" max="100" value="50" disabled/>
+    </div>
+
+
+    <h4>Gauge</h4>
+    <!--
+    <h3>Dial</h3>
+    <h3>Scrollbar</h3>
+    <h3>Slider</h3>
+    <h3>Range</h3>
+    -->
+
+    <h2>Boolean</h2>
+
+    <h3>Checkbox</h3>
+
+    <div class="tx-checkbox">
+        <input type="checkbox" />
+        <svg>
+            <use xlink:href="#checkmark" />
+        </svg>
+    </div>
+    <div class="tx-checkbox">
+        <input type="checkbox" checked />
+        <svg>
+            <use xlink:href="#checkmark" />
+        </svg>
+    </div>
+    <div class="tx-checkbox">
+        <input type="checkbox" disabled />
+        <svg>
+            <use xlink:href="#checkmark" />
+        </svg>
+    </div>
+    <div class="tx-checkbox">
+        <input type="checkbox" checked disabled />
+        <svg>
+            <use xlink:href="#checkmark" />
+        </svg>
+    </div>
+
+    <h3>Switch</h3>
+
+    <div class="tx-switch">
+        <input class="tx-switch" type="checkbox">
+        <span></span>
+        <label>Off</label>
+        </input>
+    </div>
+
+    <div class="tx-switch">
+        <input class="tx-switch" type="checkbox" checked>
+        <span></span>
+        <label>On</label>
+    </div>
+
+    <div class="tx-switch">
+        <input class="tx-switch" type="checkbox" disabled>
+        <span></span>
+        <label>Disabled &amp; Off</label>
+        </input>
+    </div>
+
+    <div class="tx-switch">
+        <input class="tx-switch" type="checkbox" checked disabled>
+        <span></span>
+        <label>Disabled &amp; On</label>
+    </div>
+
+    <h2>One of Many</h2>
+
+    <h4>Radio Button</h4>
+
+    <!--
+      in material.io, checkboxes are 24px high, radio buttons 20px
+      in spectrum, both are 14px high
+      
+      in this case the look will be more classic with a dot in a circle
+      instead of a disc with a small hole as in spectrum
+      
+      sketch and figma are snakeoil
+    -->
+
+    <div class="tx-radio">
+        <input type="radio" name="fruits" value="apple" checked />
+        <span></span>
+        <label>Apple</label>
+    </div>
+
+    <div class="tx-radio">
+        <input type="radio" name="fruits" value="orange" />
+        <span></span>
+        <label>Orange</label>
+    </div>
+
+    <div class="tx-radio">
+        <input type="radio" name="first" value="Egg" checked disabled/>
+        <span></span>
+        <label>Egg</label>
+    </div>
+
+    <div class="tx-radio">
+        <input type="radio" name="first" value="Hen" disabled/>
+        <span></span>
+        <label>Egg</label>
+    </div>
+
+    <h4>Picker Button</h4>
+
+    Used for Popup Menu, Combobox, Search, Search Within, ...
+
+    <h4>Picker/Popup Menu</h4>
+
+<!--
+    <label for="cars">Choose a car:</label>
+    <select name="cars" id="cars">
+        <option value="volvo">Volvo</option>
+        <option value="saab" selected>Saab</option>
+        <option value="mercedes">Mercedes</option>
+        <option value="audi">Audi</option>
+    </select>
+-->
+
+    <h4>Combobox</h4>
+
+    <div class="tx-combobox">
+        <input type="text" value="select or type">
+        <button>
+            <svg width="100%" height="100%">
+                <use xlink:href="#chevron" />
+            </svg>
+        </button>
+    </div>
+
+    <div class="tx-combobox">
+        <input type="text" value="select or type" disabled>
+        <button>
+            <svg width="100%" height="100%">
+                <use xlink:href="#chevron" />
+            </svg>
+        </button>
+    </div>
+
+<!--
+    <label for="myBrowser">Gib einen Browsernamen ein:</label>
+    <input list="browsers" id="myBrowser" name="myBrowser" />
+    <datalist id="browsers">
+    <option value="Chrome">
+    <option value="Firefox">
+    <option value="Internet Explorer">
+    <option value="Opera">
+    <option value="Safari">
+    </datalist>
+-->
+
+    <h4>Search</h4>
+
+    <p>
+    Disabling can't be handled via CSS on the input element.
+    Hence other elements need to be set to disabled too.
+    Sometimes there's also an 'is-disabled' polyfill being used.
+    </p>
+
+    <!-- the <form> will cause the reset button to delete the input -->
+
+    <form class="tx-search">
+        <div>
+            <svg viewBox="0 0 36 36" width="100%" height="100%">
+                <use xlink:href="#search" />
+            </svg>
+            <input type="search" placeholder="Search" autocomplete="off" />
+        </div>
+        <button type="reset">
+            <svg id="spectrum-css-icon-Cross100" width="100%" height="100%">
+                <use xlink:href="#cross" />
+            </svg>
+        </button>
+    </form>
+
+    <form class="tx-search">
+        <div>
+            <svg viewBox="0 0 36 36" width="100%" height="100%">
+                <use xlink:href="#search" />
+            </svg>
+            <input type="search" placeholder="Search" autocomplete="off" disabled/>
+        </div>
+        <button type="reset" disabled >
+            <svg id="spectrum-css-icon-Cross100" width="100%" height="100%">
+                <use xlink:href="#cross" />
+            </svg>
+        </button>
+    </form>
+
+    <h4>Search Within</h4>
+
+    <form class="tx-searchwithin">
+        <button type="button" class="spectrum-Picker spectrum-Picker--sizeM spectrum-SearchWithin-picker" aria-haspopup="true">
+          <span>Customer</span>
+          <svg focusable="false" aria-hidden="true">
+            <use xlink:href="#chevron" />
+          </svg>
+        </button>
+        <div>
+            <svg viewBox="0 0 36 36" width="100%" height="100%">
+                <use xlink:href="#search" />
+            </svg>
+            <input type="search" placeholder="Search" autocomplete="off" />
+        </div>
+        <button type="reset">
+            <svg id="spectrum-css-icon-Cross100" width="100%" height="100%">
+                <use xlink:href="#cross" />
+            </svg>
+        </button>
+    </form>
+
+    <form class="tx-searchwithin">
+        <button type="button" class="spectrum-Picker spectrum-Picker--sizeM spectrum-SearchWithin-picker" aria-haspopup="true" disabled>
+          <span>Customer</span>
+          <svg focusable="false" aria-hidden="true">
+            <use xlink:href="#chevron" />
+          </svg>
+        </button>
+        <div>
+            <svg viewBox="0 0 36 36" width="100%" height="100%">
+                <use xlink:href="#search" />
+            </svg>
+            <input type="search" placeholder="Search" autocomplete="off" disabled/>
+        </div>
+        <button type="reset" disabled>
+            <svg id="spectrum-css-icon-Cross100" width="100%" height="100%">
+                <use xlink:href="#cross" />
+            </svg>
+        </button>
+    </form>
+
+
+    <h3>Table</h3>
+
+    <h2>Form</h2>
+
+    <form class="tx-form">
+        <div>
+            <label class="tx-label" for="username">Your username or email address</label>
+            <input id="username" class="tx-text" value="Orange" />
+            <div class="tx-helptext error">
+                <svg viewBox="0 0 36 36" width="100%" height="100%">
+                    <use xlink:href="#exclamation" />
+                </svg>
+                <div>
+                    Lorem ipsum dolor sit amet, consectetur adipisici elit, sed eiusmod tempor incidunt ut labore et
+                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+                    aliquid ex ea commodi consequat. Quis aute iure reprehenderit in voluptate velit esse cillum dolore
+                    eu fugiat nulla pariatur. Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia
+                    deserunt mollit anim id est laborum.
+                </div>
+            </div>
+        </div>
+        <div>
+            <label class="tx-label" for="username">Your Password</label>
+            <input id="username" class="tx-text" value="Orange" />
+            <div class="tx-helptext">
+                <svg viewBox="0 0 36 36" width="100%" height="100%">
+                    <use xlink:href="#exclamation" />
+                </svg>
+                <div>
+                    Lorem ipsum dolor.
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <h2>Dialogs</h2>
+
+    <h2>Navigation</h2>
+
+    The Tabs follow Material.io, where there are three kinds:
+    Tabs, Navigation Rail and Navigation Drawer.
+
+    <h4>Horizontal Tabs</h4>
+
+    In Material.io the tabs are scrollable.
+
+    <h4>Vertial Tabs</h4>
+
+    Has another name in Material.io.
+
+</body>
+
+</html>
