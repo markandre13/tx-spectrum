@@ -32,6 +32,7 @@
     <link rel="stylesheet" type="text/css" href="tx-search.css" />
     <link rel="stylesheet" type="text/css" href="tx-searchwithin.css" />
     <link rel="stylesheet" type="text/css" href="tx-combobox.css" />
+    <link rel="stylesheet" type="text/css" href="tx-tabs.css" />
     <style>
         :root {
             /* rounding: 4px desktop, 5px mobile */
@@ -77,48 +78,6 @@
 </head>
 
 <body>
-    <!--
-        Colors
-                        Border     Value BG    Button BG
-        Focus           #378ef0
-        Error           #f76d74
-                        
-        Combobox (1px)      
-            Enabled     gray-400   gray-50     gray-75
-            Hover       gray-500   gray-50     gray-75
-            Open        gray-400   gray-50     #3e3e3e
-            Disabled    #3e3e3e    #3e3e3e     #3e3e3e
-        CheckBox (2px)
-            Enabled     #b9b9b9         gray-75
-            Hover       gray-800        gray-75
-            Disabled    gray-400        gray-75
-        Switch
-            Inside Switch               gray-75
-            Switch Border On/Off        gray-700
-            Switch Border Hover         gray-800
-
-            Label                       gray-800
-            Label Hover                 #fbfbfb
-            Label Disabled              gray-500
-
-            Outside Switch Off          gray-300
-            Outside Switch On Disabled  gray-400
-            Outside Switch On Enabled   gray-700
-        Radiobutton
-            Enabled                     gray-700
-            Hover                       gray-800
-            Disabled                    gray-400
-            Inside                      gray-75
-    -->
-
-    <!--
-        TextFieldModel
-            label: string
-            help: string
-            error: string
-            disabled
-            required
-    -->
 
     <h1><svg width="50" height="30">
             <path style="fill: var(--tx-static-red-500)" d="M 10 0 L 0 30 L 10 30 L 20 0"></path>
@@ -483,13 +442,66 @@
     The Tabs follow Material.io, where there are three kinds:
     Tabs, Navigation Rail and Navigation Drawer.
 
+    In Spectrum CSS they ain't, int Spectrum React they are and in Spectrum WebComponents the animation is not pleaseant.
+
     <h4>Horizontal Tabs</h4>
 
     In Material.io the tabs are scrollable.
 
-    <h4>Vertial Tabs</h4>
+<script>
+    // https://stackoverflow.com/questions/60635196/animate-line-under-two-css-tabs
+    // https://stackoverflow.com/users/8397974/hiws
 
-    Has another name in Material.io.
+    function setTab(eventOrTab) {
+        if (eventOrTab.target === undefined) {
+            tab = eventOrTab;
+        } else {
+            let event = eventOrTab;
+            tab = event.target;
+            if (event.stopPropagation) event.stopPropagation();
+            if (event.preventDefault) event.preventDefault();
+            event.cancelBubble = true;
+            event.returnValue = false;
+        }
+        let line = tab.parentElement.parentElement.parentElement.querySelector("div")
+        line.style.left = tab.offsetLeft + "px";
+        line.style.width = tab.clientWidth + "px";
+
+        let tabs = tab.parentElement.parentElement.querySelectorAll("li > span")
+        tabs.forEach((t) => {
+            t.classList.remove("active")
+        })
+        tab.classList.add("active")
+        return false;
+    }
+
+    window.onload = function () {
+        const tabs = document.querySelectorAll(".tx-tabs > ul > li:first-child > span")
+        tabs.forEach(tab => setTab(tab));
+    }
+</script>
+        <nav class="tx-tabs">
+          <ul class="nav" >
+            <li class="nav-item">
+              <span class="nav-link" onmousedown="setTab(event)">
+                Explore
+              </span>
+            </li>
+            <li class="nav-item">
+              <span class="nav-link" onmousedown="setTab(event)">
+                Flights
+              </span>
+            </li>
+            <li class="nav-item">
+              <span class="nav-link" onmousedown="setTab(event)">
+                Trips
+              </span>
+            </li>
+          </ul>
+          <div class="line"></div>
+        </nav>
+
+    <h4>Vertial Tabs</h4>
 
 </body>
 
