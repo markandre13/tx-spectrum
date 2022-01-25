@@ -40,4 +40,11 @@
     --tx-green-500: #268e6c;
     --tx-green-600: #12805c;
     --tx-green-700: #107154;
+
+    /* focus */
+    --tx-global-blue-500: #1473e6;
+    /* error */
+    --tx-global-red-600: #c9252d;
+    /* okay */
+    --tx-global-green-600: #39b990;
 }

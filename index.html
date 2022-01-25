@@ -43,8 +43,8 @@
 
             --toad-fg-color: var(--tx-gray-700);
             --toad-bg-color: var(--tx-gray-50);
-            --toad-placeholder-fg-color: #909090;
-            --toad-placeholder-fg-color-hover: #fff;
+            --toad-placeholder-fg-color: var(--tx-gray-600);
+            --toad-placeholder-fg-color-hover: var(--tx-gray-900);
 
             --toad-fg-color-disabled: var(--tx-gray-500);
             --toad-bg-color-disabled: var(--tx-gray-100);
@@ -53,21 +53,23 @@
             --toad-edit-font-size: calc((12/16) * 1rem);
             --toad-edit-font-weight: 400;
 
-            --toad-edit-fg-color: #e3e3e3;
-            --toad-edit-fg-color-disabled: #6e6e6e;
+            --toad-edit-fg-color: var(--tx-gray-800);
+            --toad-edit-fg-color-disabled: var(--tx-gray-500);
 
             --toad-edit-bg-color: var(--tx-gray-50);
             --toad-edit-bg-color-disabled: var(--tx-gray-100);
 
-            --toad-selection-color: #0069d4;
-            --toad-warning-color: #f76d74;
+            /* --toad-selection-color: #0069d4;
+            --toad-warning-color: #f76d74; */
+            --toad-selection-color: var(--tx-global-blue-500);
+            --toad-warning-color: var(--tx-global-red-600);
 
             /* Border/Outline */
 
             /* outline indicates that the element has the focus */
-            --toad-outline-color: #378ef0;
-            --toad-border-color: #5a5a5a;
-            --toad-border-color-hover: #6e6e6e;
+            --toad-outline-color: var(--tx-blue-500);
+            --toad-border-color: var(--tx-gray-400);
+            --toad-border-color-hover: var(--tx-gray-500);
             --toad-border-width: 1px;
             --toad-border-radius: 4px;
         }
@@ -242,7 +244,7 @@
     <h3>Checkbox</h3>
 
     <div class="tx-checkbox">
-        <input type="checkbox" />
+        <input type="checkbox"/>
         <svg>
             <use xlink:href="#checkmark" />
         </svg>

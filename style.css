@@ -81,11 +81,11 @@ pre {
  * COLOR
  */
 body {
-    background: #373737;
-    color: #e3e3e3;
+    background: var(--tx-gray-100);
+    color: var(--tx-gray-800);
 }
 a:link { 
-    color: #fff;
+    color: var(--tx-gray-900);
     font-weight: bold;
     text-decoration: none;
     text-decoration-style: solid;
@@ -95,11 +95,11 @@ a:hover {
     text-decoration: underline; 
 }
 a:visited { 
-    color: #fff;
+    color: var(--tx-gray-900);
     cursor: auto;
 }
 a:link:active, a:visited:active { 
-     color: #fff;
+     color: var(--tx-gray-900);
 }
 /* a:link::before {
   content: "→";

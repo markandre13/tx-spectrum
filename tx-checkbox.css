@@ -47,13 +47,13 @@
     background-color: var(--tx-gray-700);
 }
 .tx-checkbox > input:hover:checked {
-    background-color: #e3e3e3;
+    background-color: var(--tx-gray-800);
 }
 
 .tx-checkbox > input:disabled {
-    color: #5a5a5a;
-    border-color: #5a5a5a;
+    color: var(--tx-gray-400);
+    border-color: var(--tx-gray-400);
 }
 .tx-checkbox > input:checked:disabled {
-    background-color: #5a5a5a;
+    background-color: var(--tx-gray-400);
 }
