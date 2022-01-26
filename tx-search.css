@@ -55,6 +55,7 @@
     cursor: pointer;
     border-radius: 0 4px 4px 0;
     text-align: center;
+    outline: none;
 
     background-color: var(--tx-gray-50);
     border-radius: 0 4px 4px 0;
@@ -72,6 +73,13 @@
 }
 .tx-search > div > input:hover {
     border-color: var(--tx-gray-500);
+}
+
+.tx-search > div > input:focus {
+    border-color: var(--toad-outline-color);
+}
+.tx-search > button:focus > svg {
+    fill: var(--toad-outline-color);
 }
 
 .tx-search > div > input:disabled {

@@ -63,6 +63,24 @@
     fill: var(--tx-gray-900);
 }
 
+.tx-combobox > input:focus {
+    border-color: var(--toad-outline-color);
+}
+.tx-combobox > input:focus + button {
+    border-color: var(--toad-outline-color);
+}
+/* spectrum use a 1px focus ring when the focus was set by mouse
+ * and a 2px focus ring when the focus was set by keyboard
+ * no clue how to do that with css
+ *
+/* .tx-combobox > input:focus-visible {
+    outline: 1px solid var(--toad-outline-color);
+}
+.tx-combobox > input:focus-visible + button {
+    outline: 1px solid var(--toad-outline-color);
+    border-left: none;
+} */
+
 .tx-combobox > input:disabled {
     color: var(--tx-gray-700);
     background-color: var(--tx-gray-200);
