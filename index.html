@@ -463,15 +463,28 @@
             event.cancelBubble = true;
             event.returnValue = false;
         }
-        let line = tab.parentElement.parentElement.parentElement.querySelector("div")
-        line.style.left = tab.offsetLeft + "px";
-        line.style.width = tab.clientWidth + "px";
+
+        let list = tab.parentElement.parentElement
+        let line = list.nextSibling
+        while(line.nodeName !== "DIV") {
+            line = line.nextSibling
+        }
+
+        let container = list.parentElement
+        if (container.classList.contains("tx-vertical")) {
+            line.style.top = tab.offsetTop + "px";
+            line.style.height = tab.clientHeight + "px";
+        } else {
+            line.style.left = tab.offsetLeft + "px";
+            line.style.width = tab.clientWidth + "px";
+        }
 
         let tabs = tab.parentElement.parentElement.querySelectorAll("li > span")
         tabs.forEach((t) => {
             t.classList.remove("active")
         })
         tab.classList.add("active")
+
         return false;
     }
 
@@ -502,6 +515,27 @@
         </nav>
 
     <h4>Vertial Tabs</h4>
+
+    <nav class="tx-tabs tx-vertical">
+        <ul class="nav" >
+          <li class="nav-item">
+            <span class="nav-link" onmousedown="setTab(event)">
+              Explore
+            </span>
+          </li>
+          <li class="nav-item">
+            <span class="nav-link" onmousedown="setTab(event)">
+              Flights
+            </span>
+          </li>
+          <li class="nav-item">
+            <span class="nav-link" onmousedown="setTab(event)">
+              Trips
+            </span>
+          </li>
+        </ul>
+        <div class="line"></div>
+      </nav>
 
 </body>
 
