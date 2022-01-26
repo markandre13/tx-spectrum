@@ -4,7 +4,7 @@
     box-shadow: none;
     box-sizing: border-box;
     padding: 0;
-    margin: 0;
+    margin: 2px; /* leave space for the focus ring */
     border: none 0;
     height: 14px;
     width: 14px;
@@ -25,6 +25,14 @@
     background-color: var(--toad-edit-bg-color);
     -webkit-appearance: none;
 }
+
+/* focus ring */
+.tx-checkbox > input:focus-visible {
+    outline: 2px solid;
+    outline-color: var(--toad-outline-color);
+    outline-offset: 2px;
+}
+
 .tx-checkbox > svg {
     position: absolute;
     left: 2px;
@@ -39,9 +47,9 @@
 .tx-checkbox > input:hover {
     border-color: var(--tx-gray-800);
 }
-.tx-checkbox > input:focus {
+/* .tx-checkbox > input:focus {
     border-color: var(--toad-outline-color);
-}
+} */
 
 .tx-checkbox > input:checked {
     background-color: var(--tx-gray-700);

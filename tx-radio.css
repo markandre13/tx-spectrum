@@ -5,7 +5,7 @@
     position: relative;
     vertical-align: top;
 }
-/* an invisible checkbox will overlay everything, handling input and state */
+/* an invisible radiobutton will overlay everything, handling input and state */
 .tx-radio > input {
     display: inline-block;
     position: absolute;
@@ -19,6 +19,7 @@
     opacity: 0;
     z-index: 1;
 }
+
 /* the span provides the visual appearance */
 .tx-radio > span {
     display: block;
@@ -35,6 +36,13 @@
     width: 14px;
     height: 14px;
     background: none;
+}
+
+/* focus ring */
+.tx-radio > input:focus-visible + span {
+    outline: 2px solid;
+    outline-color: var(--toad-outline-color);
+    outline-offset: 2px;
 }
 /* this is the knob on the switch */
 .tx-radio > span:before {

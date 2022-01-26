@@ -36,6 +36,14 @@
     height: 14px;
     background: var(--tx-gray-300);
 }
+
+/* focus ring */
+.tx-switch > input:focus-visible + span {
+    outline: 2px solid;
+    outline-color: var(--toad-outline-color);
+    outline-offset: 2px;
+}
+
 /* this is the knob on the switch */
 .tx-switch > span:before {
     display: block;
@@ -71,7 +79,6 @@
 .tx-switch > input:hover + span + label {
     color: var(--tx-gray-900);
 }
-
 
 .tx-switch > input:checked:disabled + span {
     background: var(--tx-gray-400);
