@@ -22,7 +22,7 @@
     height: 2px;
     border: none;
     background: var(--tx-gray-700); /* track */
-    outline-offset: 2px;
+    outline: none;
 }
 
 .tx-slider > input::-webkit-slider-thumb {
@@ -44,6 +44,19 @@
     background: var(--tx-gray-75); /* inside knob */
     box-sizing: border-box;
 }
+
+/* focus ring */
+.tx-slider > input:focus::-webkit-slider-thumb {
+    outline: 2px solid;
+    outline-color: var(--toad-outline-color);
+    outline-offset: 2px;
+}
+.tx-slider > input:focus::-moz-range-thumb {
+    outline: 2px solid;
+    outline-color: var(--toad-outline-color);
+    outline-offset: 2px;
+}
+
 .tx-slider > input::-moz-focus-outer {
     border: 0;
 }
