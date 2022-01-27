@@ -79,12 +79,15 @@
 
 <body>
 
-    <h1><svg width="50" height="30">
+    <h1>
+        <svg width="50" height="30">
             <path style="fill: var(--tx-static-red-500)" d="M 10 0 L 0 30 L 10 30 L 20 0"></path>
             <path style="fill: var(--tx-static-orange-500)" d="M 20 0 L 10 30 L 20 30 L 30 0"></path>
             <path style="fill: var(--tx-static-green-500)" d="M 30 0 L 20 30 L 30 30 L 40 0"></path>
             <path style="fill: var(--tx-static-blue-500)" d="M 40 0 L 30 30 L 40 30 L 50 0"></path>
-        </svg><i>TX Spectrum (Work in Progress)</i></h1>
+        </svg>
+        <i>TX Spectrum (Work in Progress)</i>
+    </h1>
 
     <h2>What</h2>
 
@@ -317,6 +320,73 @@
                 <use xlink:href="#chevron" />
             </svg>
         </button>
+    </div>
+
+    <style>
+        .tx-popover {
+            background-color: var(--tx-gray-50);
+            border: 1px solid var(--tx-gray-400);
+            border-radius: 4px;
+            display: inline-flex;
+            flex-direction: column;
+            filter: drop-shadow(rgba(0, 0, 0, 0.5) 0px 1px 4px);
+        }
+        .tx-menu {
+            display: inline-block;
+            padding: 0;
+            margin: 4px 0 4px 0;
+        }
+        .tx-menu > li {
+            cursor: pointer;
+            display: flex;
+            border: none;
+            border-left: 2px solid var(--tx-gray-50);
+            border-right: 2px solid var(--tx-gray-50);
+            padding: 7px 11px 7px 10px;
+            margin: 0;
+            font-weight: 500;
+            outline: none;
+        }
+        .tx-menu > li:hover {
+            background-color: var(--tx-gray-100);
+            border-color: var(--tx-gray-100);
+        }
+        .tx-menu > li:focus {
+            border-left-color: var(--toad-outline-color);
+        }
+        .tx-menu > li[role=separator] {
+            display: block;
+            box-sizing: content-box;
+            overflow: visible;
+            cursor: default;
+            height: 2px;
+            padding: 0px;
+            margin: 1.5px 7px 1.5px 7px;
+            background-color: var(--tx-gray-100);
+            white-space: pre;
+            list-style-type: none;
+        }
+        .tx-menu > li.tx-disabled {
+            color: var(--tx-gray-500);
+        }
+        .tx-menu > li.tx-disabled:hover {
+            background-color: var(--tx-gray-50);
+        }
+
+    </style>
+
+    <br/>
+
+    <div class="tx-popover">
+        <ul class="tx-menu" role="listbox">
+            <li tabindex="0" role="option">Blueberry</li>
+            <li tabindex="0" role="option">Grape</li>
+            <li tabindex="0" role="option">Lime</li>
+            <li tabindex="0" role="option">Strawberry</li>
+            <li tabindex="0" role="option">Tangerine</li>
+            <li role="separator"></li>
+            <li class="tx-disabled" aria-disabled="true" role="option">Bondi Blue</li>
+        </ul>
     </div>
 
     <h4>Search</h4>
