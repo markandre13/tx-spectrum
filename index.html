@@ -21,6 +21,7 @@
     <link rel="stylesheet" type="text/css" href="style.css" />
 
     <!-- Atoms  -->
+    <link rel="stylesheet" type="text/css" href="tx-button.css" />
     <link rel="stylesheet" type="text/css" href="tx-text.css" />
     <link rel="stylesheet" type="text/css" href="tx-helptext.css" />
     <link rel="stylesheet" type="text/css" href="tx-label.css" />
@@ -32,6 +33,7 @@
     <link rel="stylesheet" type="text/css" href="tx-search.css" />
     <link rel="stylesheet" type="text/css" href="tx-searchwithin.css" />
     <link rel="stylesheet" type="text/css" href="tx-combobox.css" />
+    <link rel="stylesheet" type="text/css" href="tx-menu.css" />
     <link rel="stylesheet" type="text/css" href="tx-tabs.css" />
     <style>
         :root {
@@ -150,6 +152,42 @@
         </path>
         <path id="search" d="M33.173 30.215L25.4 22.443a12.826 12.826 0 10-2.957 2.957l7.772 7.772a2.1 2.1 0 002.958-2.958zM6 15a9 9 0 119 9 9 9 0 01-9-9z"></path>
     </svg>
+
+    <h2>Button</h2>
+
+    <style>
+        
+    </style>
+
+    <button class="tx-button">
+        <span class="tx-label">
+            Maybe
+        </span>
+    </button>
+
+    <button class="tx-button">
+        <span class="tx-label">
+            Cancel
+        </span>
+    </button>
+
+    <button class="tx-button tx-default">
+        <span class="tx-label">
+            Okay
+        </span>
+    </button>
+
+    <button class="tx-button tx-accent">
+        <span class="tx-label">
+            Encouraging
+        </span>
+    </button>
+
+    <button class="tx-button tx-negative">
+        <span class="tx-label">
+            Discouraging
+        </span>
+    </button>
 
     <h2>Text</h2>
 
@@ -321,59 +359,6 @@
             </svg>
         </button>
     </div>
-
-    <style>
-        .tx-popover {
-            background-color: var(--tx-gray-50);
-            border: 1px solid var(--tx-gray-400);
-            border-radius: 4px;
-            display: inline-flex;
-            flex-direction: column;
-            filter: drop-shadow(rgba(0, 0, 0, 0.5) 0px 1px 4px);
-        }
-        .tx-menu {
-            display: inline-block;
-            padding: 0;
-            margin: 4px 0 4px 0;
-        }
-        .tx-menu > li {
-            cursor: pointer;
-            display: flex;
-            border: none;
-            border-left: 2px solid var(--tx-gray-50);
-            border-right: 2px solid var(--tx-gray-50);
-            padding: 7px 11px 7px 10px;
-            margin: 0;
-            font-weight: 500;
-            outline: none;
-        }
-        .tx-menu > li:hover {
-            background-color: var(--tx-gray-100);
-            border-color: var(--tx-gray-100);
-        }
-        .tx-menu > li:focus {
-            border-left-color: var(--toad-outline-color);
-        }
-        .tx-menu > li[role=separator] {
-            display: block;
-            box-sizing: content-box;
-            overflow: visible;
-            cursor: default;
-            height: 2px;
-            padding: 0px;
-            margin: 1.5px 7px 1.5px 7px;
-            background-color: var(--tx-gray-100);
-            white-space: pre;
-            list-style-type: none;
-        }
-        .tx-menu > li.tx-disabled {
-            color: var(--tx-gray-500);
-        }
-        .tx-menu > li.tx-disabled:hover {
-            background-color: var(--tx-gray-50);
-        }
-
-    </style>
 
     <br/>
 
