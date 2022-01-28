@@ -155,10 +155,6 @@
 
     <h2>Button</h2>
 
-    <style>
-        
-    </style>
-
     <button class="tx-button">
         <span class="tx-label">
             Maybe
@@ -188,6 +184,169 @@
             Discouraging
         </span>
     </button>
+
+    <h2>Calendar</h2>
+
+    <style>
+        .tx-date {
+            width: fit-content;
+        }
+        .tx-date > div {
+            width: 100%;
+            font-size: calc((18/16) * 1rem);
+            font-weight: bold;
+            text-align: center;
+        }
+        .tx-date td {
+            /* width: 1%; same width for all rows */
+            text-align: center;
+        }
+        .tx-date td span {
+            display: inline-block;
+            margin: 2px;
+            width: 28px;
+            height: 28px;
+            text-align: center;
+            line-height: 28px;
+            border: 2px solid var(--tx-gray-100);
+            border-radius: 100%;
+            cursor:default;
+            font-weight: bold;
+        }
+        .tx-date td span:hover {
+            background-color: var(--tx-gray-200);
+            border-color: var(--tx-gray-200);
+        }
+        .tx-date td span.tx-today {
+            border-color: var(--tx-gray-900);
+        }
+        .tx-date td span.tx-selected {
+            background: #334961;
+            border-color: #334961;
+        }
+    </style>
+
+    <div id="date" class="tx-date">
+        <div></div>
+        <table>
+            <thead>
+                <tr>
+                    <th>SUN</th>
+                    <th>MON</th>
+                    <th>TUE</th>
+                    <th>WED</th>
+                    <th>THU</th>
+                    <th>FRI</th>
+                    <th>SAT</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        // this isn't stable; doesn't use localtime?
+        // Spectrum has tooltips like "Friday, August 5, 2017"
+        let parent = document.getElementById("date")
+        const now = new Date()
+        let today = now.getDate()
+        let firstDay = new Date(now.getFullYear(), now.getMonth(), 1, 0, 0, 0).getDay()
+        let lastDay = new Date(now.getFullYear(), now.getMonth()+1, 0, 0, 0, 0).getDate()
+
+        const monthName = [
+            "January",
+            "February",
+            "March",
+            "April",
+            "May",
+            "June",
+            "August",
+            "September",
+            "October",
+            "November",
+            "December"
+        ]
+
+        parent.children[0].innerHTML = monthName[now.getMonth()] + " " + now.getFullYear()
+        const body = parent.children[1].tBodies[0]
+        let dayOfMonth = 1
+        for(let row=0; row<6; ++row) {
+            for(let col=0; col<7; ++col) {
+                if (row === 0 && col < firstDay) {
+                    text = ""
+                } else
+                if (dayOfMonth <= lastDay) {
+                    if (dayOfMonth == 8) {
+                        text = '<span class="tx-selected">' + dayOfMonth + '</span>'
+                    } else
+                    if (dayOfMonth == today) {
+                        text = '<span class="tx-today">' + dayOfMonth + '</span>'
+                    } else {
+                        text = '<span>' + dayOfMonth + '</span>'
+                    }
+                    ++dayOfMonth
+                } else {
+                    text=""
+                }
+                body.children[row].children[col].innerHTML = text
+            }
+        }
+    </script>
 
     <h2>Text</h2>
 
