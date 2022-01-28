@@ -64,9 +64,13 @@
 }
 
 .tx-label {
-    padding: 4px 0 6px 0;
-    align-self: center;
-    justify-self: center;
-    text-align: center;
     font-weight: bold;
+
+    padding: 4px 0 6px 0;
+    /* override parent flex/grid's align-items property to align in the center */
+    align-self: center;
+    /* adjust sides in container to look centered...? */
+    justify-self: center;
+    /* align children in the center */
+    text-align: center;
 }

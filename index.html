@@ -188,20 +188,43 @@
     <h2>Calendar</h2>
 
     <style>
-        .tx-date {
+        .tx-calendar {
             width: fit-content;
         }
-        .tx-date > div {
+        .tx-calendar > div {
+            display: flex;
+            align-items: center;
             width: 100%;
+        }
+        .tx-calendar > div > div {
+            flex-grow: 1;
+            order: 1;
+            text-align: center;
+
             font-size: calc((18/16) * 1rem);
             font-weight: bold;
+        }
+        .tx-calendar > div button {
+            background: none;
+            border: none;
+            position: relative;
+        }
+        .tx-calendar > div button > svg {
+            width: 10px;
+            height: 10px;
+            fill: var(--tx-gray-900)
+        }
+        .tx-calendar > div > div + button {
+            order: 0;
+            transform: rotate(180deg);
+        }
+        .tx-calendar > div > div + button + button {
+            order: 2;
+        }
+        .tx-calendar td {
             text-align: center;
         }
-        .tx-date td {
-            /* width: 1%; same width for all rows */
-            text-align: center;
-        }
-        .tx-date td span {
+        .tx-calendar td span {
             display: inline-block;
             margin: 2px;
             width: 28px;
@@ -213,21 +236,33 @@
             cursor:default;
             font-weight: bold;
         }
-        .tx-date td span:hover {
+        .tx-calendar td span:hover {
             background-color: var(--tx-gray-200);
             border-color: var(--tx-gray-200);
         }
-        .tx-date td span.tx-today {
+        .tx-calendar td span.tx-today {
             border-color: var(--tx-gray-900);
         }
-        .tx-date td span.tx-selected {
+        .tx-calendar td span.tx-selected {
             background: #334961;
             border-color: #334961;
         }
     </style>
 
-    <div id="date" class="tx-date">
-        <div></div>
+    <div id="date" class="tx-calendar">
+        <div>
+            <div></div>
+            <button>
+                <svg>
+                    <use xlink:href="#chevron" />
+                </svg>
+            </button>
+            <button>
+                <svg>
+                    <use xlink:href="#chevron" />
+                </svg>
+            </button>
+        </div>
         <table>
             <thead>
                 <tr>
@@ -300,52 +335,87 @@
     </div>
 
     <script>
-        // this isn't stable; doesn't use localtime?
-        // Spectrum has tooltips like "Friday, August 5, 2017"
-        let parent = document.getElementById("date")
-        const now = new Date()
-        let today = now.getDate()
-        let firstDay = new Date(now.getFullYear(), now.getMonth(), 1, 0, 0, 0).getDay()
-        let lastDay = new Date(now.getFullYear(), now.getMonth()+1, 0, 0, 0, 0).getDate()
+        class TXCalendar {
+            static monthName = [
+                "January",
+                "February",
+                "March",
+                "April",
+                "May",
+                "June",
+                "July",
+                "August",
+                "September",
+                "October",
+                "November",
+                "December"
+            ]
 
-        const monthName = [
-            "January",
-            "February",
-            "March",
-            "April",
-            "May",
-            "June",
-            "August",
-            "September",
-            "October",
-            "November",
-            "December"
-        ]
+            constructor(parent) {
+                this.parent = parent
+                // this isn't stable; doesn't use localtime?
+                // Spectrum has tooltips like "Friday, August 5, 2017"
+                this.now = new Date()
+                this.year = this.now.getFullYear()
+                this.month = this.now.getMonth()
 
-        parent.children[0].innerHTML = monthName[now.getMonth()] + " " + now.getFullYear()
-        const body = parent.children[1].tBodies[0]
-        let dayOfMonth = 1
-        for(let row=0; row<6; ++row) {
-            for(let col=0; col<7; ++col) {
-                if (row === 0 && col < firstDay) {
-                    text = ""
-                } else
-                if (dayOfMonth <= lastDay) {
-                    if (dayOfMonth == 8) {
-                        text = '<span class="tx-selected">' + dayOfMonth + '</span>'
-                    } else
-                    if (dayOfMonth == today) {
-                        text = '<span class="tx-today">' + dayOfMonth + '</span>'
-                    } else {
-                        text = '<span>' + dayOfMonth + '</span>'
+                this.parent.children[0].children[1].onclick = () => {
+                    --this.month
+                    if (this.month < 0) {
+                        --this.year
+                        this.month = 11
                     }
-                    ++dayOfMonth
-                } else {
-                    text=""
+                    this.updateView()
                 }
-                body.children[row].children[col].innerHTML = text
+                this.parent.children[0].children[2].onclick = () => {
+                    ++this.month
+                    if (this.month > 11) {
+                        ++this.year
+                        this.month = 0
+                    }
+                    this.updateView()
+                }
+                this.updateView()
+            }
+
+            updateView() {
+                let today
+                if (this.month == this.now.getMonth() && this.year == this.now.getFullYear()) {
+                    today = this.now.getDate()
+                    console.log(`today is ${today}`)
+                }
+
+                let firstDay = new Date(this.year, this.month, 1, 0, 0, 0).getDay()
+                let lastDay = new Date(this.year, this.month+1, 0, 0, 0, 0).getDate()
+
+                this.parent.children[0].children[0].innerHTML =
+                    TXCalendar.monthName[this.month] + " " + this.year
+                
+                const body = this.parent.children[1].tBodies[0]
+                let dayOfMonth = 1
+                for(let row=0; row<6; ++row) {
+                    for(let col=0; col<7; ++col) {
+                        let text = '<span></span>'
+                        if (row === 0 && col < firstDay) {
+                        } else
+                        if (dayOfMonth <= lastDay) {
+                            // if (dayOfMonth == 8) {
+                            //     text = '<span class="tx-selected">' + dayOfMonth + '</span>'
+                            // } else
+                            
+                            if (dayOfMonth == today) {
+                                text = '<span class="tx-today">' + dayOfMonth + '</span>'
+                            } else {
+                                text = '<span>' + dayOfMonth + '</span>'
+                            }
+                            ++dayOfMonth
+                        }
+                        body.children[row].children[col].innerHTML = text
+                    }
+                }
             }
         }
+        new TXCalendar(document.getElementById("date"))
     </script>
 
     <h2>Text</h2>
